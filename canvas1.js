@@ -50,9 +50,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
   });
   $("canvas1").addEventListener("mouseup", (e) => {
     mouseDown = false;
-    //linePath.strokeStyle = "black";
-   // circularPath.strokeStyle = "black";
-  // ctx.restore();
+
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     
@@ -111,8 +109,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
    isCirlePath &&
     mouseDown
   ) {
-    //ctx.restore();
-   // ctx.reset()
+  
    ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
    ctx.drawImage($("source"), 0, 0, 600, 600);
     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
