@@ -11,14 +11,13 @@ function $(id) {
   let circularPath = new Path2D();
   circularPath.arc(x, y, r, startAngle, endAngle);
   ctx.stroke(circularPath);
-  ctx.closePath();
   let fromx = x + (r - 25) * Math.cos(Math.PI / 6);
   let fromy = y - (r - 25) * Math.sin(Math.PI / 6);
   let tox = fromx + 50 * Math.cos(Math.PI / 6);
   let toy = fromy - 50 * Math.sin(Math.PI / 6);
   
   ctx.beginPath();
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 4;
   let linePath = new Path2D();
   linePath.moveTo(fromx, fromy);
   
@@ -49,16 +48,16 @@ function $(id) {
       ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
       r = r + (newDiff - r);
       if (r < 50) r = 50;
-      circularPath = new Path2D();
-      circularPath.arc(x, y, r, startAngle, endAngle);
-      ctx.stroke(circularPath);
+      ctx.beginPath();
+      ctx.arc(x, y, r, startAngle, endAngle);
+      ctx.stroke();
       ctx.closePath();
       let fromx = x + (r - 25) * Math.cos(Math.PI / 6);
       let fromy = y - (r - 25) * Math.sin(Math.PI / 6);
       let tox = fromx + 50 * Math.cos(Math.PI / 6);
       let toy = fromy - 50 * Math.sin(Math.PI / 6);
       ctx.beginPath();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 4;
       linePath = new Path2D();
       linePath.moveTo(fromx, fromy);
       linePath.lineTo(
@@ -69,17 +68,15 @@ function $(id) {
       drawSecondArrowLine(linePath, fromx, fromy, tox, toy);
       ctx.stroke(linePath);
     }
-    else if(ctx.isPointInPath(circularPath,e.offsetX,e.offsetY) && mouseDown){
+    if(ctx.isPointInPath(circularPath,e.offsetX,e.offsetY) && mouseDown){
       ctx.reset();
       ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
-      x=x+e.movementX;
-      y=y+e.movementY;
       r = r + (newDiff - r);
       if (r < 50) r = 50;
-       circularPath = new Path2D();
-      circularPath.arc(x, y, r, startAngle, endAngle);
-      ctx.stroke(circularPath);
-      //ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(x, y, r, startAngle, endAngle);
+      ctx.stroke();
+      ctx.closePath();
       let fromx = x + (r - 25) * Math.cos(Math.PI / 6);
       let fromy = y - (r - 25) * Math.sin(Math.PI / 6);
       let tox = fromx + 50 * Math.cos(Math.PI / 6);
