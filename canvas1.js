@@ -42,7 +42,8 @@ drawSecondArrowLine(linePath, fromx, fromy, tox, toy);
 ctx.stroke(linePath);
 
 let mouseDown = false;
-
+let isCirlePath = false;
+let isLineStrokePath = false;
 $("canvas1").addEventListener("mousemove", (e) => {
   $("canvas1").addEventListener("mousedown", (e) => {
     mouseDown = true;
@@ -54,18 +55,25 @@ $("canvas1").addEventListener("mousemove", (e) => {
   // ctx.restore();
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
-     ctx.beginPath();
+    
       ctx.stroke(circularPath);
         ctx.stroke(linePath);
-        ctx.closePath();
+        isCirlePath = false;
+        isLineStrokePath = false;
   });
   let newDiff = Math.sqrt(
     Math.pow(e.offsetX - x, 2) + Math.pow(e.offsetY - y, 2)
   );
-  if (ctx.isPointInStroke(linePath, e.offsetX, e.offsetY) && mouseDown) {
+  if(ctx.isPointInStroke(linePath, e.offsetX, e.offsetY) && mouseDown){
+    isLineStrokePath = true;
+  }
+    else if (ctx.isPointInPath(circularPath, e.offsetX, e.offsetY) && mouseDown) {
+    isCirlePath = true;
+    }
+  if (isLineStrokePath && mouseDown) {
     ctx.reset();
     ctx.save();
-    ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
+   // ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
 
     r = r + (newDiff - r);
     if (r < 50) r = 50;
@@ -100,25 +108,26 @@ $("canvas1").addEventListener("mousemove", (e) => {
     ctx.stroke(linePath);
     //ctx.restore()
   } else if (
-    ctx.isPointInPath(circularPath, e.offsetX, e.offsetY) &&
+   isCirlePath &&
     mouseDown
   ) {
     //ctx.restore();
-     ctx.save();
-   // ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
-    ctx.drawImage($("source"), 0, 0, 600, 600);
+   // ctx.reset()
+   ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
+   ctx.drawImage($("source"), 0, 0, 600, 600);
     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
     x = x + e.movementX;
     y = y + e.movementY;
-
-
+    
+    
     circularPath = new Path2D();
     circularPath.arc(x, y, r, startAngle, endAngle);
-     ctx.beginPath();
+    ctx.beginPath();
     ctx.drawImage($("source"), 0, 0, 600, 600);
     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
     ctx.fillRect(0, 0, 600, 600);
+    ctx.save();
     ctx.clip(circularPath);
     ctx.drawImage($("source"), 0, 0, 600, 600);
     ctx.strokeStyle='red'
