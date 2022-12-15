@@ -29,7 +29,7 @@ let fromy = y - (r - 25) * Math.sin(Math.PI / 6);
 let tox = fromx + 50 * Math.cos(Math.PI / 6);
 let toy = fromy - 50 * Math.sin(Math.PI / 6);
 
-ctx.lineWidth = 2;
+
 let linePath = new Path2D();
 ctx.beginPath();
 linePath.moveTo(fromx, fromy);
@@ -41,7 +41,7 @@ linePath.lineTo(
 
 drawArrowLine(linePath, fromx, fromy, tox, toy);
 drawSecondArrowLine(linePath, fromx, fromy, tox, toy);
-
+ctx.lineWidth=4;
 ctx.stroke(linePath);
 
 let mouseDown = false;
@@ -53,11 +53,11 @@ $("canvas1").addEventListener("mousemove", (e) => {
   });
   $("canvas1").addEventListener("mouseup", (e) => {
     mouseDown = false;
-
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 1;
-    
-      ctx.stroke(circularPath);
+    ctx.lineWidth=1;
+    ctx.stroke(circularPath);
+    ctx.restore();
+    ctx.lineWidth = 4;
         ctx.stroke(linePath);
         isCirlePath = false;
         isLineStrokePath = false;
@@ -96,7 +96,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
     let tox = fromx + 50 * Math.cos(Math.PI / 6);
     let toy = fromy - 50 * Math.sin(Math.PI / 6);
     ctx.beginPath();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 4;
 
     linePath = new Path2D();
     linePath.moveTo(fromx, fromy);
@@ -140,7 +140,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
     let tox = fromx + 50 * Math.cos(Math.PI / 6);
     let toy = fromy - 50 * Math.sin(Math.PI / 6);
     ctx.beginPath();
-    //ctx.lineWidth = 2;
+    ctx.lineWidth = 4;
     linePath = new Path2D();
     linePath.moveTo(fromx, fromy);
     linePath.lineTo(
