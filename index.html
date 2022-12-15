@@ -7,18 +7,39 @@
     <style>
        #canvas1{
             border: 1px solid #000;
-           
+             margin-right: 20px;
        } 
+       #img-frame{
+           border: 1px solid #000;
+           width: 600px;
+              height: 600px;
+             
+       }
+       #canvas2{
+        display: none;
+       }
+       div{
+       display:flex;
+       }
     </style>
     <body>
-        <div style="position: absolute; top:50px; left:50px;">
+        <canvas id="canvas2" width="600px" height="600px"
+        >
+            Your browser does not support HTML5 Canvas.
+        </canvas>
+        <div >
         <canvas id="canvas1" width="600px" height="600px"
         >
             Your browser does not support HTML5 Canvas.
         </canvas>
-        <div style="display:none;">
+      
+          <div id="display">
+            <img id="img-frame"/>
+          </div>
+          <div style="display:none;">
             <img id="source" src="h.png"  />
           </div> 
+        
         <!-- <canvas id="canvas" width="600px" height="600px"></canvas>
 <div style="display:none;">
   <img id="source" src="h.png"  />

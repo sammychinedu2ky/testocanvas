@@ -2,6 +2,7 @@ function $(id) {
   return document.getElementById(id);
 }
 let ctx = $("canvas1").getContext("2d");
+    let ctx2 = $("canvas2").getContext("2d");
 let width = Math.floor(Math.random() * 400) + 200;
 
 let x = 300;
@@ -12,6 +13,7 @@ let endAngle = 2 * Math.PI;
 let circularPath = new Path2D();
 circularPath.arc(x, y, r, startAngle, endAngle);
 
+ctx.drawImage($("source"), 0, 0, $("source").width, $("source").height);
 ctx.drawImage($("source"), 0, 0, 600, 600);
 ctx.save();
 ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
@@ -19,6 +21,7 @@ ctx.fillRect(0, 0, 600, 600);
 ctx.clip(circularPath);
 ctx.drawImage($("source"), 0, 0, 600, 600);
 ctx.stroke(circularPath);
+createImage();
 ctx.restore();
 
 let fromx = x + (r - 25) * Math.cos(Math.PI / 6);
@@ -71,6 +74,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
   if (isLineStrokePath && mouseDown) {
     ctx.reset();
     ctx.save();
+    createImage();
    // ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
 
     r = r + (newDiff - r);
@@ -109,7 +113,7 @@ $("canvas1").addEventListener("mousemove", (e) => {
    isCirlePath &&
     mouseDown
   ) {
-  
+  createImage();
    ctx.clearRect(0, 0, $("canvas1").width, $("canvas1").height);
    ctx.drawImage($("source"), 0, 0, 600, 600);
     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
@@ -184,3 +188,16 @@ function drawSecondArrowLine(ctx, fromx, fromy, tox, toy) {
     fromy - arrowLength * Math.sin(angle + Math.PI / 6)
   );
 }
+
+
+function createImage(){
+    ctx2.reset();
+    ctx2.save();
+    ctx2.arc(x, y, r, startAngle, endAngle);
+    ctx2.clip();
+    ctx2.drawImage($("source"), 0, 0, 600, 600);
+    ctx2.restore();
+    let data = $("canvas2").toDataURL();
+    $("img-frame").src = data;
+    let image = ctx2.getImageData(x-r, y-r, 600, 600);
+}   
