@@ -13,7 +13,7 @@ let endAngle = 2 * Math.PI;
 let circularPath = new Path2D();
 circularPath.arc(x, y, r, startAngle, endAngle);
 
-ctx.drawImage($("source"), 0, 0, $("source").width, $("source").height);
+//ctx.drawImage($("source"), 0, 0, $("source").width, $("source").height);
 ctx.drawImage($("source"), 0, 0, 600, 600);
 ctx.save();
 ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
